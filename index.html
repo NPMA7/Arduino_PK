@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mesin Jemuran Otomatis</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
 </head>
 <body>
     <h3 id="status">Status = Off</h3>
     <button id="powerButton" onclick="main()">Nyalakan Mesin</button>
     <br><br><br>
     <h3>Masukan lokasi anda </h3><br>
-    <input type="text" id="longtitude" placeholder="nama desa atau kelurahan">
+    <input type="text" id="kecamatan" placeholder="nama kecamatan">
+    <input type="text" id="desLurah" placeholder="nama desa atau kelurahan">
     <button id="searchButton" onclick="fetchData()">cari</button>
     <div id="statCuaca"></div>
-    
-    <script src="script.js"></script>
+    <script src="./assets/js/script.js" type="module"></script>
 </body>
 </html>

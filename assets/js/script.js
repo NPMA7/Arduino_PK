@@ -1,8 +1,28 @@
 // const endpoint = 'http://192.168.x.x'; // isikan IP controller
+import {lokasi} from "./lokasi.js";
 
 function main(){
-    var status = document.getElementById('status');
-    var powerButton = document.getElementById('powerButton');
+/*
+    // lamun make json malah network error
+    // make import oge error wae ku json mah :V
+    fetch('../json/lokasi.json')
+    .then(response => {
+        if (!response.ok) {
+        throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => {
+        console.error(error);
+    });
+*/ 
+    let kec = document.getElementById('kecamatan').value;
+    let desLurah = document.getElementById('desLurah').value;
+    let status = document.getElementById('status');
+    let powerButton = document.getElementById('powerButton');
     if(powerButton.innerText == 'Nyalakan Mesin'){
         status.innerHTML = 'Status = On';
         powerButton.innerText = 'Matikan Mesin'
@@ -10,6 +30,7 @@ function main(){
         status.innerHTML = 'Status = Off';
         powerButton.innerText = 'Nyalakan Mesin';
     }
+    return 0;
 }
 
 async function fetchData() {
@@ -39,7 +60,7 @@ async function fetchData() {
         // const anDate =  data.data[0].cuaca[0][0].analysis_date;
         
         let statistik = document.getElementById('statCuaca');
-        statistik.innerHTML += `
+        statistik.innerHTML = `
                                 <h4>Lokasi : ${lokasi}</h4>
                                 <h4>Cuaca : ${cuaca}</h4>
                                 <h4>Suhu saat ini : ${suhu}°C</h4>
