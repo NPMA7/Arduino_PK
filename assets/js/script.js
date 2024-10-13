@@ -1,11 +1,7 @@
 // const endpoint = 'http://192.168.x.x'; // isikan IP controller
-import {lokasi} from "./lokasi.js";
 
 function main(){
-/*
-    // lamun make json malah network error
-    // make import oge error wae ku json mah :V
-    fetch('../json/lokasi.json')
+    fetch('/assets/json/lokasi.json')
     .then(response => {
         if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -18,11 +14,9 @@ function main(){
     .catch(error => {
         console.error(error);
     });
-*/ 
-    let kec = document.getElementById('kecamatan').value;
-    let desLurah = document.getElementById('desLurah').value;
-    let status = document.getElementById('status');
-    let powerButton = document.getElementById('powerButton');
+
+    const status = document.getElementById('status');
+    const powerButton = document.getElementById('powerButton');
     if(powerButton.innerText == 'Nyalakan Mesin'){
         status.innerHTML = 'Status = On';
         powerButton.innerText = 'Matikan Mesin'
@@ -31,10 +25,12 @@ function main(){
         powerButton.innerText = 'Nyalakan Mesin';
     }
     return 0;
+    
 }
 
-async function fetchData() {
+async function fetchLokasi() {
     try{
+    
         const response = await fetch('https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.04.15.2005');
         if(!response.ok){
             throw new Error ('could not fetch resource');

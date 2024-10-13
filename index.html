@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mesin Jemuran Otomatis</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TKJ3 | Controller Arduino</title>
     <!-- <link rel="stylesheet" href="style.css"> -->
-</head>
-<body>
+  </head>
+  <body>
     <h3 id="status">Status = Off</h3>
     <button id="powerButton" onclick="main()">Nyalakan Mesin</button>
-    <br><br><br>
-    <h3>Masukan lokasi anda </h3><br>
-    <input type="text" id="kecamatan" placeholder="nama kecamatan">
-    <input type="text" id="desLurah" placeholder="nama desa atau kelurahan">
-    <button id="searchButton" onclick="fetchData()">cari</button>
-    <div id="statCuaca"></div>
-    <script src="./assets/js/script.js" type="module"></script>
-</body>
+    <div style="margin-top: 5em;">
+      <h3>Masukan lokasi anda</h3>
+      <input type="text" id="desLurah" placeholder="masukan lokasi" />
+      <button id="searchButton" onclick="fetchLokasi()">cari</button>
+    </div>
+      <div id="statCuaca"></div>
+    
+    
+    <script src="./assets/js/script.js"></script>
+  </body>
 </html>
