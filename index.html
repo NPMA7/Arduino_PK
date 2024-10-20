@@ -4,19 +4,110 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TKJ3 | Controller Arduino</title>
-    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+    <style></style>
   </head>
-  <body>
-    <h3 id="status">Status = Off</h3>
-    <button id="powerButton" onclick="main()">Nyalakan Mesin</button>
-    <button onclick="fetchLokasi()">tampilkan</button>
-    <div style="margin-top: 5em;">
-      <h3>Masukan lokasi anda</h3>
-      <input type="text" id="searchLokasi" placeholder="masukan lokasi" />
-      <button id="searchButton" onclick="search()">cari</button>
+  <body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-6">
+      <h3 id="status" class="text-lg font-semibold text-gray-800">
+        Status = Off
+      </h3>
+      <div class="flex space-x-2 mt-4">
+        <button
+          id="powerButton"
+          onclick="main()"
+          class="px-4 py-2 bg-blue-500 text-white font-bold rounded hover:bg-blue-700 transition duration-200"
+        >
+          Nyalakan Mesin
+        </button>
+        <button
+          onclick="fetchLokasi()"
+          class="px-4 py-2 bg-green-500 text-white font-bold rounded hover:bg-green-700 transition duration-200"
+        >
+          Tampilkan
+        </button>
+      </div>
+      <div class="mt-10">
+        <h3 class="text-lg font-semibold text-gray-800">Masukan lokasi anda</h3>
+        <input
+          type="text"
+          id="searchLokasi"
+          placeholder="Masukkan lokasi"
+          class="mt-2 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+        <button
+          id="searchButton"
+          onclick="search()"
+          class="mt-2 px-4 py-2 bg-yellow-500 text-white font-bold rounded hover:bg-yellow-700 transition duration-200"
+        >
+          Cari
+        </button>
+        <div
+          id="lokasi"
+          class="flex flex-wrap mt-4 h-32 overflow-y-auto border border-gray-300 rounded-lg bg-white p-2"
+        ></div>
+      </div>
+      <div id="statCuaca" class="mt-10">
+        <div class="p-4 bg-white rounded shadow">
+          <h4 class="font-bold text-lg">Statistik Cuaca</h4>
+          <table class="min-w-full mt-4 border-collapse border border-gray-300">
+            <tbody>
+              <tr>
+                <td class="border border-gray-300 px-4 py-2 font-semibold w-1/2">
+                  Lokasi:
+                </td>
+                <td
+                  class="border border-gray-300 px-4 py-2 w-1/2"
+                  id="lokasiCuaca"
+                ></td>
+              </tr>
+              <tr>
+                <td class="border border-gray-300 px-4 py-2 font-semibold w-1/2">
+                  Cuaca:
+                </td>
+                <td class="border border-gray-300 px-4 py-2 w-1/2" id="cuaca"></td>
+              </tr>
+              <tr>
+                <td class="border border-gray-300 px-4 py-2 font-semibold w-1/2">
+                  Suhu saat ini:
+                </td>
+                <td class="border border-gray-300 px-4 py-2 w-1/2" id="suhu"></td>
+              </tr>
+              <tr>
+                <td class="border border-gray-300 px-4 py-2 font-semibold w-1/2">
+                  Kecepatan angin:
+                </td>
+                <td class="border border-gray-300 px-4 py-2 w-1/2" id="kecAngin"></td>
+              </tr>
+              <tr>
+                <td class="border border-gray-300 px-4 py-2 font-semibold w-1/2">
+                  Arah angin:
+                </td>
+                <td class="border border-gray-300 px-4 py-2 w-1/2" id="arhAngin"></td>
+              </tr>
+              <tr>
+                <td class="border border-gray-300 px-4 py-2 font-semibold w-1/2">
+                  Kelembaban:
+                </td>
+                <td
+                  class="border border-gray-300 px-4 py-2 w-1/2"
+                  id="kelembapan"
+                ></td>
+              </tr>
+              <tr>
+                <td class="border border-gray-300 px-4 py-2 font-semibold w-1/2">
+                  Waktu:
+                </td>
+                <td class="border border-gray-300 px-4 py-2 w-1/2" id="waktu"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-    <div id="lokasi"> </div>
-    <div id="statCuaca"></div>
     <script src="./assets/js/script.js"></script>
   </body>
 </html>
