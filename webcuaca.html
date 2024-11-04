@@ -7,22 +7,48 @@
         body {
             font-family: 'Roboto', sans-serif;
         }
+        #popupOverlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }     
+        .popup-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 900px;
+            height: 500px;
+        }
+        #tanggal, #jam{
+            display: inline;
+        }
     </style>
 </head>
 <body class="bg-gray-800 flex items-center justify-center min-h-screen">
     <div class="bg-gray-900 rounded-xl shadow-lg p-6 flex space-x-4">
         <div class="bg-gradient-to-br from-blue-400 to-purple-500 rounded-xl p-10 text-white w-64">
-            <div class="text-lg font-bold">Rabu</div>
-            <div class="text-sm">11 Nov 2024</div>
+            <div id="hari" class="text-lg font-bold">hari</div>
+            <div id="waktu">
+                <p id="tanggal" class="text-sm"></p>
+                <p id="jam" class="text-sm"></p>
+            </div>
             <div class="flex items-stretch mt-2">
                 <i class="fas fa-map-marker-alt mr-2"></i>
-                <div class="text-sm">Cikalong City</div>
+                <div id="lokasiCuaca" class="text-sm">lokasi</div>
             </div>
             <div class="flex items-center justify-center mt-6">
                 <i class="fas fa-sun text-6xl"></i>
             </div>
-            <div class=" text-6xl font-bold mt-4">29°C</div>
-            <div class=" text-lg">Cerah</div>
+            <div id="suhu" class=" text-6xl font-bold mt-4">suhu</div>
+            <div id="cuaca" class=" text-lg">kondisi cuaca</div>
         </div>
         <div class="text-white w-64">
             <div class="flex justify-between text-sm mb-2 mt-5">
@@ -31,68 +57,96 @@
             </div>
             <div class="flex justify-between text-sm mb-2">
                 <div>KELEMBABAN</div>
-                <div>34 %</div>
+                <div id="kelembapan">34 %</div>
             </div>
             <div class="flex justify-between text-sm mb-4">
                 <div>ANGIN</div>
-                <div>0 km/h</div>
+                <div id="kecAngin">0 km/h</div>
             </div>
             <div class="flex space-x-2 mb-4">
                 <div class="bg-gray-800 rounded-lg p-2 w-96 items-center">
                     <i class="fas fa-sun mb-2"></i>
                     <div>Pagi</div>
-                    <div class="font-bold">29°C</div>
+                    <div id="cuacaPagi" class="font-bold">-°C</div>
                 </div>
                 <div class="bg-gray-800 rounded-lg p-2 w-96 items-center">
                     <i class="fas fa-cloud mb-2"></i>
                     <div>Siang</div>
-                    <div class="font-bold">21°C</div>
+                    <div id="cuacaSiang" class="font-bold">-°C</div>
                 </div>
                 <div class="bg-gray-800 rounded-lg p-2 w-96 items-center">
                     <i class="fas fa-cloud-showers-heavy mb-2"></i>
                     <div>Sore</div>
-                    <div class="font-bold">08°C</div>
+                    <div id="cuacaSore" class="font-bold">-°C</div>
                 </div>
                 <div class="bg-gray-800 rounded-lg p-2 w-96 items-center">
                     <i class="fas fa-cloud-rain mb-2"></i>
                     <div>Malam</div>
-                    <div class="font-bold">19°C</div>
+                    <div id="cuacaMalam" class="font-bold">-°C</div>
                 </div>
             </div>
-            <button class="bg-gradient-to-r from-blue-400 to-purple-500 text-white rounded-xl py-2 px-4 flex items-center justify-center w-full">
+            <button id="popUpCari" class="bg-gradient-to-r from-blue-400 to-purple-500 text-white rounded-xl py-2 px-4 flex items-center justify-center w-full">
                 <i class="fas fa-map-marker-alt mr-2"></i>
                 Cari Lokasi
-            </button>
-            <button class="bg-gradient-to-r from-blue-400 to-purple-500 text-white rounded-xl py-2 px-4 items-center justify-center w-full mt-2">
-                <p>Nyalakan Mesin</p>
-                <p class="italic text-xs">PAKAIAN SEDANG DIJEMUR</p>
+            </button>      
+            <button id="powerButton" class="bg-gradient-to-r from-blue-400 to-purple-500 text-white rounded-xl py-2 px-4 items-center justify-center w-full mt-2">
+                <p id="statusMesin"></p>
+                <p id="infoMesin" class="italic text-xs"></p>
             </button>
         </div>
     </div>
-</body>
-<body class="bg-gray-800 flex items-center justify-center min-h-screen"></body>
-    <div class="bg-gray-900 rounded-xl shadow-lg p-6 flex space-x-4 ml-1">
-        <div class="text-white w-64">
-            <div class="text-center text-sm mb-2 mt-2 space-x-1">
-                <div>PREDIKSI CUACA</div>
-            </div>
-                 <div class="bg-gray-800 rounded-lg p-3 text-center flex-col items-center mb-2">
-                    <i class="fas fa-cloud mb-2"></i>
-                    <div>Kamis</div>
-                    <div class="font-bold">18°C</div>
-                </div> 
-                <div class="bg-gray-800 rounded-lg p-3 text-center flex-col items-center mb-2">
-                    <i class="fas fa-cloud mb-2"></i>
-                    <div>Jum'at</div>
-                    <div class="font-bold">21°C</div>
+    <!-- Pop-Up untuk mencari lokasi -->
+    <div id="popupOverlay"">
+        <div class="popup-content">
+            <div class="mt-10">
+                <h3 class="text-lg font-semibold text-gray-800">Masukan lokasi anda</h3>
+                <input
+                  type="text"
+                  id="searchLokasi"
+                  placeholder="Masukkan lokasi"
+                  class="mt-2 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
+                <button
+                  id="searchButton"
+                  onclick="search()"
+                  class="mt-2 px-4 py-2 bg-yellow-500 text-white font-bold rounded hover:bg-yellow-700 transition duration-200"
+                >
+                  Cari
+                </button>
+                <div
+                  id="lokasi"
+                  class="flex flex-wrap mt-4 h-32 overflow-y-auto border border-gray-300 rounded-lg bg-white p-2"
+                ></div>
+              </div>
+          <button id="close-btn" >Tutup</button>
+        </div>
+    </div>    
+
+    <div class="bg-gray-800 flex items-center justify-center min-h-screen">
+        <div class="bg-gray-900 rounded-xl shadow-lg p-6 flex space-x-4 ml-1">
+            <div class="text-white w-64">
+                <div class="text-center text-sm mb-2 mt-2 space-x-1">
+                    <div>PREDIKSI CUACA</div>
                 </div>
-                <div class="bg-gray-800 rounded-lg p-3 text-center flex-col items-center mb-2">
-                    <i class="fas fa-cloud-showers-heavy mb-1"></i>
-                    <div>Sabtu</div>
-                    <div class="font-bold">08°C</div>
+                    <div class="bg-gray-800 rounded-lg p-3 text-center flex-col items-center mb-2">
+                        <i class="fas fa-cloud mb-2"></i>
+                        <div id="besok">Besok</div>
+                        <div id="suhuBesok" class="font-bold">-°C</div>
+                    </div> 
+                    <div class="bg-gray-800 rounded-lg p-3 text-center flex-col items-center mb-2">
+                        <i class="fas fa-cloud mb-2"></i>
+                        <div id="lusa">Lusa</div>
+                        <div id="suhuLusa" class="font-bold">-°C</div>
+                    </div>
+                    <div class="bg-gray-800 rounded-lg p-3 text-center flex-col items-center mb-2">
+                        <i class="fas fa-cloud-showers-heavy mb-1"></i>
+                        <div id="besokLusa">Besok Lusa</div>
+                        <div id="suhuBesokLusa" class="font-bold">-°C</div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="./assets/js/script.js"></script>
 </body>
 </html>
