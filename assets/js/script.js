@@ -97,7 +97,14 @@ async function fetchLokasi(kode) {
     else if (kodeLokasi.includes("adm4")) lokasi = lokasi.desa;
 
     const cuaca = data.data[0].cuaca[0][0].weather_desc;
-    const waktu = data.data[0].cuaca[0][0].local_datetime.split(" ");
+    const cuacaPagi = data.data[0].cuaca[0][0].weather_desc;
+    const cuacaSiang = data.data[0].cuaca[0][0].weather_desc;
+    const cuacaSore = data.data[0].cuaca[0][0].weather_desc;
+    const cuacaMalam = data.data[0].cuaca[0][0].weather_desc;
+    const cuacaBesok = data.data[0].cuaca[1][2].weather_desc;
+    const cuacaLusa = data.data[0].cuaca[2][2].weather_desc;
+    const cuacaBesokLusa = data.data[0].cuaca[2][1].weather_desc;
+    const arrayCuaca = [cuaca, cuacaPagi, cuacaSiang, cuacaSore, cuacaMalam, cuacaBesok, cuacaLusa, cuacaBesokLusa];
     const suhu = data.data[0].cuaca[0][0].t;
     const suhuPagi = data.data[0].cuaca[0][0].t;
     const suhuSiang = data.data[0].cuaca[0][0].t;
@@ -108,20 +115,25 @@ async function fetchLokasi(kode) {
     const suhuBesokLusa = data.data[0].cuaca[2][1].t;
     const kelembapan = data.data[0].cuaca[0][0].hu;
     const kecAngin = data.data[0].cuaca[0][0].ws;
+    const waktu = data.data[0].cuaca[0][0].local_datetime.split(" ");
     const tanggal = waktu[0];
-    const waktuSekarang = new Date();
-    const jam = waktuSekarang.getHours();
-    const menit = waktuSekarang.getMinutes();
-    const detik = waktuSekarang.getSeconds();
     const hari = new Date(tanggal);
     const hariHari = ["Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu", "Minggu"];
     const indexHari = hari.getDay();
     const namaHari  = hariHari[indexHari];
-
+    console.log(tanggal);
+    console.log(hari);
+    console.log(hariHari);
+    console.log(indexHari);
+    console.log(namaHari);
     // Prediksi cuaca 3 hari kedepan
-    const hariBesok = hariHari[indexHari +1];
-    const hariLusa = hariHari[indexHari +2];
-    const hariBesokLusa = hariHari[indexHari +3];
+    const hariBesok = hariHari[indexHari +1] == undefined? hariHari[0] : hariHari[indexHari +1];
+    const hariLusa = hariHari[indexHari +2] == undefined? hariHari[1] : hariHari[indexHari +2];
+    const hariBesokLusa = hariHari[indexHari +3] == undefined? hariHari[2] : hariHari[indexHari +3];
+    console.log(hariBesok);
+    console.log(hariLusa);
+    console.log(hariBesokLusa);
+
     // const arhAngin = {
     //   N: "Utara",
     //   E: "Timur",
@@ -142,27 +154,69 @@ async function fetchLokasi(kode) {
         document.getElementById('kelembapan').innerText = `${kelembapan}%`;
         document.getElementById('tanggal').innerText = `${tanggal}, `;
 
-        
+        document.getElementById("suhuPagi").innerText = `${suhuPagi}°C`;
+        document.getElementById("suhuSiang").innerText = `${suhuSiang}°C`;
+        document.getElementById("suhuSore").innerText = `${suhuSore}°C`;
+        document.getElementById("suhuMalam").innerText = `${suhuMAlam}°C`;
         document.getElementById("besok").innerText = hariBesok;
         document.getElementById("suhuBesok").innerText = `${suhuBesok}°C`;
         document.getElementById("lusa").innerText = hariLusa;
         document.getElementById("suhuLusa").innerText = `${suhuLusa}°C`;
         document.getElementById("besokLusa").innerText = hariBesokLusa;
         document.getElementById("suhuBesokLusa").innerText = `${suhuBesokLusa}°C`;
-    // hapus pencarian sebelumnya
-    // document.getElementById("lokasi").innerHTML = "";
+        // hapus pencarian sebelumnya
+        // document.getElementById("lokasi").innerHTML = "";
+        gantiIconCuaca(arrayCuaca);
+        setInterval(jam, 1000);
   } catch (error) {
     console.error(error);
   }
 }
+
+function gantiIconCuaca(arrayCuaca){
+  const sekarang = document.getElementById("cuacaSekarang");
+  const pagi = document.getElementById("cuacaPagi");
+  const siang = document.getElementById("cuacaSiang");
+  const sore = document.getElementById("cuacaSore");
+  const malam = document.getElementById("cuacaMalam");
+  const besok = document.getElementById("cuacaBesok");
+  const lusa = document.getElementById("cuacaLusa");
+  const besokLusa = document.getElementById("cuacaBesokLusa");
+  const arrayWaktu = [sekarang, pagi, siang, sore, malam, besok, lusa, besokLusa];
+  let classIcon = [];
+
+  arrayCuaca.forEach((value)=>{
+    if(value == "Cerah"){
+      classIcon.push("fa-sun");
+    }else if(value = "Berawan"){
+      classIcon.push("fa-cloud");
+    }else if(value = "Hujan Ringan"){
+      classIcon.push("fa-cloud-rain");
+    }else if(value = "Hujan Berat"){
+      classIcon.push("fa-cloud-showers-heavy");
+    }else{
+      classIcon.push("ERROR");
+    }
+  });
+  arrayWaktu.forEach((value, index)=>{
+    if(value.classList.contains("fa-sun")){
+      value.classList.replace("fa-sun", classIcon[index]);
+    }else if(value.classList.contains("fa-cloud")){
+      value.classList.replace("fa-cloud", classIcon[index]);
+    }else if(value.classList.contains("fa-cloud-rain")){
+      value.classList.replace("fa-cloud", classIcon[index]);
+    }else if(value.classList.contains("fa-cloud-showers-heavy")){
+      value.classList.replace("fa-cloud-showers-heavy", classIcon[index]);
+    }else{
+      console.log("icon error");
+    }
+  });
+}
+
 function jam(){
   const waktuSekarang = new Date();
   const jam = waktuSekarang.getHours();
   const menit = waktuSekarang.getMinutes();
   const detik = waktuSekarang.getSeconds();
   document.getElementById('jam').innerText = ` ${jam}:${menit}:${detik}`;
-}
-console.log(document.getElementById("tanggal").innerText != "");
-if(document.getElementById("tanggal").innerText == ""){
-  setInterval(jam, 1000);
 }
